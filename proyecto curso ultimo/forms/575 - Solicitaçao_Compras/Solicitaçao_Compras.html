@@ -1,0 +1,263 @@
+<html>
+<head>
+	<link type="text/css" rel="stylesheet" href="/style-guide/css/fluig-style-guide.min.css"/>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/jquery/jquery-ui.min.js"></script>
+	<script type="text/javascript" src="/portal/resources/js/mustache/mustache-min.js"></script>
+	<script type="text/javascript" src="/style-guide/js/fluig-style-guide.min.js" charset="utf-8"></script>
+	
+	
+	
+</head>
+<body>
+<div class="fluig-style-guide">
+<form name="form" role="form">
+
+	<div id="exTab1">
+        <ul class="nav nav-tabs">
+          <li class="active">
+            <a id="nav_dados_solic" href="#aba_dados_solic" data-toggle="tab">Datos del Solicitante</a>
+          </li>
+          <li><a id="nav_aba_dados_Prod" href="#aba_dados_Prod" data-toggle="tab">Productos</a>
+          </li>
+          <li><a id="nav_dados_aprov" href="#aba_dados_aprov" data-toggle="tab">Aprobacion de Datos</a>
+          </li>
+          
+        </ul>
+     </div>
+<div class="tab-content">
+<!-- DADOS DO SOLICITANTE -->
+<div class="tab-pane active" id="aba_dados_solic">
+	<div class="panel panel-default">
+	<div class="panel-heading"> i18n.translate("dados_sol")</div>
+	<div class="panel-body">
+		<div class="row" >
+			<div class="form-group col-md-4">
+				<label for="solicitante">i18n.translate("Solicitante")</label>
+				<input type="text" class="form-control" id="solicitante" name="solicitante">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="dt_solicitacao">Aprobacion de Datos</label>
+				<input type="text" class="form-control" id="dt_solicitacao" name="dt_solicitacao">
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-md-4">
+				<label for="nome">Nombre</label>
+				<input type="text" class="form-control" id="nome" name="nome">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="email">E-mail</label>
+				<input type="text" class="form-control" id="email" name="email">
+			</div>
+		</div>
+		<div class="row">
+			<div class="form-group col-md-6">
+				<label for="ramal">Telefono</label>
+				<input type="text" class="form-control" id="ramal" name="ramal" mask="0000-0000">
+			</div>
+			<div class="form-group col-md-4">
+				<label for="setor">Sector</label>
+				<input
+					type="zoom"
+					id = "setor"
+					name="setor"
+					data-zoom="{
+					    'displayKey':'Setor',
+					    'datasetId':'ds_setor',
+					    'maximumSelectionLength':'2',
+					    'placeholder':'Escolha o setores',
+					    'fields':[{
+					              'field':'Setor',
+					              'label':'Setor',
+					              'standard':'true'
+					            },{
+					              'field':'Gestor',
+					              'label':'Gestor'
+					            } ]
+										 }"
+				/>
+			</div>				
+		</div>
+		<div class="row">
+			<div class="form-group col-md-4" id="campo_unidade">
+				<label for="justificativa">Justificacion</label>
+				<textarea class="form-control" name="justificativa" id="justificativa" rows="7" placeholder="Faça um descrição da sua Justificativa"></textarea>
+			</div>
+			<div class="form-group col-md-4" style="padding-top: 25px;">
+				<table>
+					<tr>
+						<td>Materia Prima</td>
+						<td style="padding-left: 10px;"><input type="radio" name="tp_produto" id="tp_produto_mp"></td>
+					</tr>
+					<tr>
+						<td>
+							Producto Acabado 
+						</td>
+						<td style="padding-left: 10px;">
+							<input type="radio" name="tp_produto" id="tp_produto_pa">
+						</td>
+					</tr>
+				</table>
+								
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="tab-pane" id="aba_dados_Prod">
+	<div class="panel panel-default">
+	<div class="panel-heading"> Productos </div>
+	<div class="panel-body">
+			<div class="row">
+			<div class="form-group col-md-12">
+			
+				<table tablename="tb_produtos" class="table table-hover" noaddbutton=true nodeletebutton=true>
+					<thead>
+					<tr>
+						<td></td>
+						<td><b>Descripcion :</b></td>
+						<td><b>Cantidad :</b></td>
+						<td><b>Valor Unit :</b></td>
+						<td><b>Valor Total :</b></td>
+					</tr>
+					</thead>
+					<tr>
+						<td class="col-md-1"><div onclick="fnWdkRemoveChild(this)"><span class="fluigicon fluigicon-trash fluigicon-md botao_remove"></span></div></td>
+						<td class="col-md-5">
+								<input
+								type="zoom"
+								id = "descricao_prod"
+								name="descricao_prod"
+								data-zoom="{
+								    'displayKey':'B1_DESC',
+							    'datasetId':'ds_protheus_peter_get',
+								    'maximumSelectionLength':'1',
+								    'placeholder':'Eligir su Producto',
+								    'fields':[{
+								          'field':'B1_COD',
+								          'label':'Codigo Producto'
+								        },{
+							              'field':'B1_DESC',
+							              'label':'Descripcion'							              
+							            }							        
+							        ]
+								 }"
+							/>
+
+							
+						</td>
+						<td class="col-md-2">
+
+								<input type="text" class="form-control" id="quantidade_prod" name="quantidade_prod">
+
+						</td>
+						<td class="col-md-2">
+
+								<input type="text" class="form-control" id="valUnit_prod" onblur="calcula(this.id)" name="valUnit_prod">
+
+						</td>
+						<td class="col-md-2">
+								<input type="text" class="form-control" id="valTotal_prod" name="valTotal_prod">
+						</td>
+					</tr>
+				</table>
+				<button class="btn btn-primary" id="add_tb_produtos" onclick="wdkAddChild('tb_produtos')">Nuevo</button>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+<div class="tab-pane" id="aba_dados_aprov">
+	<div id="dados_aprov_gestor" class="panel panel-default">
+	<div class="panel-heading" id="panel_gestor"> Aprobacion del Gerente</div>
+	<div class="panel-body">
+
+		<div class="row">
+			<div class="form-group col-md-6">
+				<label for="desc_gestor">Descripcion del Gerente: </label>
+				<textarea class="form-control" name="desc_gestor" id="desc_gestor" rows="10"></textarea>
+			</div>	
+				
+			<div class="form-group col-md-4" style="padding-top: 25px;">
+				<label for="aprov_gestor">Aprobaci�n del gerente</label>
+				<table>
+					<tr>
+						<td>Si</td>
+						<td style="padding-left: 10px;"><input type="radio" value="Si" name="aprov_gestor" id="aprov_gestor_sim"></td>
+					</tr>
+					<tr>
+						<td>
+							No 
+						</td>
+						<td style="padding-left: 10px;">
+							<input type="radio" name="aprov_gestor" value="No" id="aprov_gestor_nao">
+						</td>
+					</tr>
+				</table>
+								
+			</div>
+		</div>
+		
+		
+	</div>
+	</div>
+	
+	
+	<div id="dados_aprov_financ" class="panel panel-default">
+	<div class="panel-heading" id="panel_financeiro"> Aprobacion Financiera</div>
+	<div class="panel-body">
+
+		<div class="row">
+			<div class="form-group col-md-6">
+				<label for="desc_financ">Descripcion Financeira: </label>
+				<textarea class="form-control" name="desc_financ" id="desc_financ" rows="10"></textarea>
+			</div>	
+				
+			<div class="form-group col-md-4" style="padding-top: 25px;">
+				<label for="aprov_financ">Aprobacion Financeiro</label>
+				<table>
+					<tr>
+						<td>Si</td>
+						<td style="padding-left: 10px;"><input type="radio" value="Si" name="aprov_financ" id="aprov_financ_sim"></td>
+					</tr>
+					<tr>
+						<td>
+							No 
+						</td>
+						<td style="padding-left: 10px;">
+							<input type="radio" name="aprov_financ" value="No" id="aprov_financ_nao">
+						</td>
+					</tr>
+				</table>
+								
+			</div>
+		</div>
+		
+		
+	</div>
+	</div>
+	
+	
+</div>	
+</div>
+
+</form>
+</div>
+</body>
+</html>
+
+</form>
+</div>
+</body>
+
+	<script type="text/javascript">
+		function calcula(id){
+			var pos= id.split("___");
+			var index=pos[1];
+			var calc= $("#quantidade_prod___"+index).val()* $("#valUnit_prod___"+index).val()
+			$("#valTotal_prod___"+index).val(calc)		
+		}
+	</script>
+
+</html>
